@@ -57,56 +57,66 @@ correlation=numeric_df.corr()
 # print(saleprice_corr)
 
 #select features
-# X=df[[
-#     "OverallQual",
-#     "GrLivArea",
-#     "GarageCars",
-#     "GarageArea",
-#     "TotalBsmtSF",
-#     "FullBath"
-# ]]
+X=df[[
+    "OverallQual",
+    "GrLivArea",
+    "GarageCars",
+    "GarageArea",
+    "TotalBsmtSF",
+    "FullBath"
+]]
 
-#target
-# Y=df["SalePrice"]
+# target
+Y=df["SalePrice"]
 
-# print("Feature (X)")
-# print(X.head())
+print("Feature (X)")
+print(X.head())
 
-# print("\nTarget (Y)")
-# print(Y.head())
+print("\nTarget (Y)")
+print(Y.head())
 
 
-# from sklearn.model_selection import train_test_split
-#split dataset
-# X_train,X_test,Y_train,Y_test=train_test_split(
-#     X,
-#     Y,
-#     test_size=0.2,
-#     random_state=56
-# )
-# print("training data:",X_train.shape)
-# print("testing data:",X_test.shape)
+from sklearn.model_selection import train_test_split
+# split dataset
+X_train,X_test,Y_train,Y_test=train_test_split(
+    X,
+    Y,
+    test_size=0.2,
+    random_state=56
+)
+print("training data:",X_train.shape)
+print("testing data:",X_test.shape)
 
-# from sklearn.model_selection import train_test_split
-# from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 
 #create linear reg model
-# model =LinearRegression()
+model =LinearRegression()
 
-#train models
-# model.fit(X_train,Y_train)
-# print("Model trained successfully")
+# train models
+model.fit(X_train,Y_train)
+print("Model trained successfully")
 
-#predict house prices
-# Y_pred=model.predict(X_test)
-# print("first 10 predication:")
-# print(Y_pred[:10])
+# predict house prices
+Y_pred=model.predict(X_test)
+print("first 10 predication:")
+print(Y_pred[:10])
 
 #Compare actual vs predicted
-# comparision=pd.DataFrame({
-#     "Actual price":Y_test.values,
-#     "Predicted Price":Y_pred
-# })
-# print(comparision.head(10))
+comparision=pd.DataFrame({
+    "Actual price":Y_test.values,
+    "Predicted Price":Y_pred
+})
+print(comparision.head(10))
 
-#eva
+#evaluate model
+from sklearn.metrics import mean_absolute_error,mean_squared_error,r2_score
+
+mae=mean_absolute_error(Y_test,Y_pred)
+mse=mean_squared_error(Y_test,Y_pred)
+r2=r2_score(Y_test,Y_pred)
+
+print("\n Model Evalution")
+print(f"MAE:{mae:.2f}")
+print(f"MAE:{mse:.2f}")
+print(f"R2 Score:{r2:.4f}")
