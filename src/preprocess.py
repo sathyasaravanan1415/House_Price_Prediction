@@ -54,3 +54,35 @@ print(df_encoded.head())
 #check the new shape
 print("\n Shap after encoding:")
 print(df_encoded.shape)
+
+print(df_encoded.columns)
+
+#separate the datas
+X = df_encoded.drop("SalePrice", axis=1)
+y = df_encoded["SalePrice"]
+
+#split data set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+#train model
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+#predict
+y_pred = model.predict(X_test)
+
+#make evaluation
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+mae = mean_absolute_error(y_test, y_pred)
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+print("MAE:", mae)
+print("MSE:", mse)
+print("R² Score:", r2)
