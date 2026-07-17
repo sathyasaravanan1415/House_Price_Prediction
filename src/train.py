@@ -120,3 +120,7 @@ print("\n Model Evalution")
 print(f"MAE:{mae:.2f}")
 print(f"MAE:{mse:.2f}")
 print(f"R2 Score:{r2:.4f}")
+
+#to check missing values
+missing=df.isnull().sum()
+print(missing[missing>0].sort_values(ascending=False))
