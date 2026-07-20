@@ -1,4 +1,5 @@
 import pandas as pd 
+import joblib
 df=pd.read_csv("data/train (1).csv")
 
 # print("\n firest 5 rows:")
@@ -124,3 +125,8 @@ print(f"R2 Score:{r2:.4f}")
 #to check missing values
 missing=df.isnull().sum()
 print(missing[missing>0].sort_values(ascending=False))
+
+
+#save the trained model
+joblib.dump(model, "models/house_price_model.pkl")
+print("Model saved successfully!")
